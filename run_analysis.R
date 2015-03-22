@@ -53,7 +53,7 @@ mergedData.subjects <- rbind(training.subjects,test.subjects)
 mergedData.all<-cbind(mergedData.subjects,mergedData.activity)
 colnames(mergedData.all)[1] <- "Subject"
 
-## create tidy data set with average
+## create tidy data set with average of each variable for each activity and each subject.
 tidyData <- aggregate( mergedData.all[,3] ~ Subject+Activity, data = mergedData.all, FUN = "mean" )
 
 for(i in 4:ncol(mergedData.all)){
@@ -63,6 +63,7 @@ for(i in 4:ncol(mergedData.all)){
 colnames(tidyData)[3:ncol(tidyData)] <- colnames(mergedData.extract)
 tidyData <- tidyData[order(tidyData[,1], tidyData[,2]),]
 
+## write tidy data to file
 write.table(tidyData, "tidyData.txt",  row.name=FALSE)
 
 
